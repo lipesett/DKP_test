@@ -1,10 +1,10 @@
 # DKP_test
 Repositório para o teste da DKP
 
-Frameworks utilizados:
-Entity Framework
-Entity Framework Tools
-PostgreSQL for Entity
+Frameworks utilizados:<br>
+Entity Framework;
+Entity Framework Tools;
+PostgreSQL for Entity;
 
 Bando de dados utilizado:
 PostgreSQL
