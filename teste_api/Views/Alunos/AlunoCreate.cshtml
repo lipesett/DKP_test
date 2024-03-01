@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Adicionar Aluno";
+}
+
+@model teste_api.Models.AddAlunoViewModel
+
+<h1>Adicionar Aluno</h1>
+
+<form asp-controller="Alunos" asp-action="AlunoCreate" method="post">
+
+    <div class="mt-3">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-control" asp-for="Nome" required />
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" asp-for="Email" required />
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Telefone</label>
+        <input type="number" class="form-control" asp-for="Telefone" />
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Matérias para o aluno:</label><br>
+        @foreach (var checkbox in Model.CheckBoxes)
+        {
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       value="@checkbox.Value"
+                       name="NomeUnico"
+                       id="checkbox_@checkbox.Value"
+                       checked="@checkbox.IsChecked" />
+                <label class="form-check-label" for="checkbox_@checkbox.Value">
+                    @checkbox.Description
+                </label>
+            </div>
+        }
+    </div>
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+
+</form>

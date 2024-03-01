@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Matéria por ID";
+}
+
+@model teste_api.Models.Entites.Materia
+
+<h1>Visualização Matéria por Id</h1>
+
+@if (Model is null)
+{
+    <p>Matéria não encontrada para este ID</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Período</th>
+                <th>Professor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.Nome</td>
+                <td>@Model.Periodo</td>
+                <td>@Model.Tutor</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Materias" asp-action="EditarMateria" asp-route-id="@Model.Id">Editar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
