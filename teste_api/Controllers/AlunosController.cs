@@ -128,7 +128,6 @@ namespace teste_api.Controllers
             return View(composedModel);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> EditarAluno(ComposedModel alunoModel)
         {
@@ -141,6 +140,29 @@ namespace teste_api.Controllers
                 aluno.Telefone = alunoModel.Aluno.Telefone;
 
                 await dbContext.SaveChangesAsync();
+            }
+
+            var alunoId = aluno.Id;
+            if (alunoModel.AddAlunoViewModel is not null)
+            {
+                foreach (var materiaId in alunoModel.AddAlunoViewModel.NomeUnico)
+                {
+                    var alunoXmateria = new AlunoXMaterias
+                    {
+                        AlunoId = aluno.Id,
+                        MateriaId = materiaId
+                    };
+                    dbContext.AlunoXMaterias.Add(alunoXmateria);
+                }
+
+                var alunoMaterias = await dbContext.AlunoXMaterias.Where(a => a.AlunoId == alunoId).ToListAsync();
+                dbContext.AlunoXMaterias.RemoveRange(alunoMaterias);
+                await dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                var alunoMaterias = await dbContext.AlunoXMaterias.Where(a => a.AlunoId == alunoId).ToListAsync();
+                await dbContext.AlunoXMaterias.Where(a => a.AlunoId == alunoId).ExecuteDeleteAsync();
             }
 
             return RedirectToAction("GetAll", "Alunos");
